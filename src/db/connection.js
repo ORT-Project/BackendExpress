@@ -9,4 +9,12 @@ const client = new Client({
     password: process.env.DB_PASS
 })
 
+client.connect()
+    .then(() => {
+        console.log('Connexion à la base de données réussie')
+    })
+    .catch((e) => {
+        console.log('Connexion a la base de données échouée', e);
+    });
+
 module.exports = client

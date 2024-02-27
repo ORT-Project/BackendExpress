@@ -1,34 +1,20 @@
-const router = require('express').Router()
+const getConfigSwagger = require('./middleware/swagger.js')
 const swaggerUI = require('swagger-ui-express')
 const express = require('express')
-const app = express()
-const client = require('./db/connection.js')
+const server = express()
+const bookRoutes = require('./routes/bookRoutes')
+const port = Number(process.env.PORT || 3000)
 
-client.connect()
-const request = async () => {
-    const query = {
-        text: 'SELECT * FROM "book"'
-    }
-    const res = await client.query(query);
+console.log('http://127.0.0.1:8081/')
 
-    for (const r of res.rows) {
-        console.log(r)
-    }
-}
+server.listen(port)
 
-request()
+server.use(express.json())
+server.set('json spaces', 2)
 
-const getConfigSwagger = require('./middleware/swagger.js')
+server.use('/books', bookRoutes)
 
+server.use('/doc', swaggerUI.serve)
+server.get('/doc', swaggerUI.setup(getConfigSwagger.swaggerOptions, getConfigSwagger.swaggerSortByHTTPRequest))
 
-const server = app.listen(8081, function () {
-    const host = server.address().address
-    const port = server.address().port
-
-    console.log('Example app listening at http//%s:%s', host, port)
-})
-
-app.use('/doc', swaggerUI.serve)
-app.get('/doc', swaggerUI.setup(getConfigSwagger.swaggerOptions, getConfigSwagger.swaggerSortByHTTPRequest))
-
-module.exports = router
+module.exports = server
