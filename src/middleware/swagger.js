@@ -1,19 +1,21 @@
-const swaggerJsDoc = require('swagger-jsdoc')
+const swaggerAutogen = require('swagger-autogen')();
+const dotenv = require('dotenv');
 
-const swaggerGeneration = {
-    swaggerDefinition: {
-        openapi: "3.0.0",
-        info: {
-            title: 'anApiOfMangasAndAnimes',
-            version: '0.1.0'
-        },
-        servers: [
-            {
-                url: 'http://localhost:8081/api/v1'
-            }
-        ]
+dotenv.config();
+
+const doc = {
+    info: {
+        title: 'Api-Livres',
+        description: 'Description',
     },
-    apis: ['src/routes/*.js']
-}
+    host: `localhost:${process.env.PORT || 3000}`,
+};
 
-const swaggerOptions = swaggerJsDoc(swaggerGeneration)
+const outputFile = './swagger-doc.json';
+const routes = [
+    '../server.js',
+];
+
+swaggerAutogen(outputFile, routes, doc).then(() => {
+    require('../server')
+});
