@@ -1,5 +1,4 @@
 const bookModel = require('../models/bookModel')
-const {request, response} = require("express");
 
 const getAllBooks = async (request, response) => {
     try {

@@ -3,6 +3,7 @@ const swaggerUI = require('swagger-ui-express')
 const express = require('express')
 const server = express()
 const bookRoutes = require('./routes/bookRoutes')
+const bookshelfRoutes = require('./routes/bookshelfRoutes')
 const port = Number(process.env.PORT || 3000)
 const apiLink = '/api'
 
@@ -14,6 +15,7 @@ server.use(express.json())
 server.set('json spaces', 2)
 
 server.use(apiLink + '/books', bookRoutes)
+server.use(apiLink + '/bookshelf', bookshelfRoutes)
 
 server.get('/', (req, res) => {
     res.send('API')
