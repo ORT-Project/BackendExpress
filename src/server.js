@@ -21,7 +21,7 @@ server.get('/', (req, res) => {
     res.send('API')
 })
 
-server.use('/doc', swaggerUI.serve)
-server.get('/doc', swaggerUI.setup(swaggerFile))
+server.use('/docs', swaggerUI.serve)
+server.get('/docs', swaggerUI.setup(swaggerFile))
 
 module.exports = server
