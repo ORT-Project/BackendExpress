@@ -1,0 +1,43 @@
+-- Adminer 4.8.1 PostgreSQL 16.2 (Debian 16.2-1.pgdg120+2) dump
+
+DROP TABLE IF EXISTS "book";
+DROP SEQUENCE IF EXISTS book_id_seq;
+CREATE SEQUENCE book_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
+
+CREATE TABLE "public"."book" (
+    "id" integer DEFAULT nextval('book_id_seq') NOT NULL,
+    "title" character varying NOT NULL,
+    "author" character varying NOT NULL,
+    "type" character varying NOT NULL,
+    "bookshelf_id" integer,
+    CONSTRAINT "book_pkey" PRIMARY KEY ("id")
+) WITH (oids = false);
+
+INSERT INTO "book" ("id", "title", "author", "type", "bookshelf_id") VALUES
+(5,	'Shadow Garden',	'Bluedy',	'manga',	2),
+(4,	'Shadow Garden',	'Bluedy',	'manga',	2),
+(10,	'Shadow Garden',	'Bluedy',	'manga',	3),
+(9,	'Shadow Garden',	'Bluedy',	'manga',	3),
+(8,	'Shadow Garden',	'Bluedy',	'manga',	2),
+(7,	'Shadow Garden',	'Bluedy',	'manga',	3),
+(12,	'Shadow Garden',	'Bluedy',	'mansga',	2);
+
+DROP TABLE IF EXISTS "bookshelf";
+DROP SEQUENCE IF EXISTS bookshelf_id_seq;
+CREATE SEQUENCE bookshelf_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
+
+CREATE TABLE "public"."bookshelf" (
+    "id" integer DEFAULT nextval('bookshelf_id_seq') NOT NULL,
+    "number" integer NOT NULL,
+    "stage" integer NOT NULL,
+    CONSTRAINT "bookshelf_pkey" PRIMARY KEY ("id")
+) WITH (oids = false);
+
+INSERT INTO "bookshelf" ("id", "number", "stage") VALUES
+(2,	22,	22),
+(3,	12221,	22112),
+(6,	33,	17);
+
+ALTER TABLE ONLY "public"."book" ADD CONSTRAINT "book_bookshelf_id_fkey" FOREIGN KEY (bookshelf_id) REFERENCES bookshelf(id) ON UPDATE CASCADE ON DELETE CASCADE NOT DEFERRABLE;
+
+-- 2024-04-11 07:58:04.341178+00

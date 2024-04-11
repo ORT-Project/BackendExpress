@@ -29,6 +29,7 @@ Ce projet vous permet également d'utiliser Docker pour la base de données, vou
 ```shell
 docker compose up -d # Permet de lancer docker en détaché
 ```
+Pour les données de la base, vous les avez dans le "/data-db/database.txt" avec les tables.
 
 ## Lancer le projet
 
@@ -38,6 +39,12 @@ Une fois toutes les étapes réalisées, vous pouvez démarrer le Projet, pensez
 npm run swagger # Actualise la documentation et lance le serveur
 npm start # Lance le serveur API
 ```
+## Routes 
+
+Pour voir les autres routes, référez-vous à la documentation (/docs)
+
+- Livres "/api/books" > API des livres
+- Bibliothèques "/api/bookshelf" > API des bibliothèques
 
 ## Auteur
 
