@@ -1,4 +1,4 @@
-const router = require('express').Router();
+const router = require('express').Router(); // module express et fonction Router
 
 const { getAllBookshelf, getBookshelfById, createBookshelf, updateBookshelf, deleteBookshelf } = require('../controllers/bookshelfController')
 

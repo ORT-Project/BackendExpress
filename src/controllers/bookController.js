@@ -1,11 +1,11 @@
 const bookModel = require('../models/bookModel')
 
-const getAllBooks = async (request, response) => {
+const getAllBooks = async (request, response) => { // Fonction asynchrone
     try {
         const data = await bookModel.findAll()
-        response.status(200).send(data)
+        response.status(200).send(data) // Requête traitée avec succès
     } catch (err) {
-        response.status(500).send({
+        response.status(500).send({ // Erreur côté serveur
             message: err.message || 'Une erreur est survenue en essayant de récupérer la table des livres'
         })
     }
@@ -26,15 +26,9 @@ const createBook = async (request, response) => {
     try {
         const newBook =  await bookModel.create(request.body)
         const createdBook = await bookModel.findByPk(newBook.id)
-        const formattedBook = {
-            id: createdBook.id,
-            title: createdBook.title,
-            author: createdBook.author,
-            type: createdBook.type
-        }
 
-        response.status(201).send({
-            message: 'New book successfully created !', formattedBook
+        response.status(201).send({ // Signifie que la ressource a été créée avec succès
+            message: 'New book successfully created !', createdBook
         })
     } catch (err) {
         response.status(500).send({
